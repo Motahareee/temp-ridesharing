@@ -1,0 +1,5 @@
+/Users/Moti/Documents/GitHub/stars/Xsimulation/build/CMakeFiles/split.dir
+/Users/Moti/Documents/GitHub/stars/Xsimulation/build/CMakeFiles/rebuild_cache.dir
+/Users/Moti/Documents/GitHub/stars/Xsimulation/build/CMakeFiles/edit_cache.dir
+/Users/Moti/Documents/GitHub/stars/Xsimulation/build/CMakeFiles/airports.dir
+/Users/Moti/Documents/GitHub/stars/Xsimulation/build/CMakeFiles/find_paths.dir
