@@ -1,1 +1,0 @@
-/usr/lib64/ccache/c++  -O2 -DNDEBUG  -rdynamic CMakeFiles/split.dir/split.cpp.o  -o split -lboost_system -lboost_iostreams -lboost_filesystem -lboost_thread -lboost_timer -lboost_regex -lboost_chrono -lboost_date_time -lboost_atomic 

@@ -1,5 +1,0 @@
-/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build/CMakeFiles/rebuild_cache.dir
-/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build/CMakeFiles/airports.dir
-/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build/CMakeFiles/edit_cache.dir
-/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build/CMakeFiles/find_paths.dir
-/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build/CMakeFiles/split.dir
