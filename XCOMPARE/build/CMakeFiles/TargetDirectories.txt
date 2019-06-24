@@ -1,0 +1,5 @@
+/Users/Moti/Documents/GitHub/temp-ridesharing/XCOMPARE/build/CMakeFiles/split.dir
+/Users/Moti/Documents/GitHub/temp-ridesharing/XCOMPARE/build/CMakeFiles/rebuild_cache.dir
+/Users/Moti/Documents/GitHub/temp-ridesharing/XCOMPARE/build/CMakeFiles/edit_cache.dir
+/Users/Moti/Documents/GitHub/temp-ridesharing/XCOMPARE/build/CMakeFiles/airports.dir
+/Users/Moti/Documents/GitHub/temp-ridesharing/XCOMPARE/build/CMakeFiles/find_paths.dir
