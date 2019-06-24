@@ -6,5 +6,5 @@ CXX_FLAGS = -O2 -DNDEBUG   -Wno-deprecated
 
 CXX_DEFINES = -D_FILE_OFSET_BITS=64
 
-CXX_INCLUDES = -I/home/Motahare/Documents/Github/ride-sharing/XsimulationNN 
+CXX_INCLUDES = -I/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN 
 

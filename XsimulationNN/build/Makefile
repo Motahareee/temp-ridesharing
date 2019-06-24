@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/Motahare/Documents/Github/ride-sharing/XsimulationNN
+CMAKE_SOURCE_DIR = /home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/Motahare/Documents/Github/ride-sharing/XsimulationNN/build
+CMAKE_BINARY_DIR = /home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Motahare/Documents/Github/ride-sharing/XsimulationNN/build/CMakeFiles /home/Motahare/Documents/Github/ride-sharing/XsimulationNN/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build/CMakeFiles /home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Motahare/Documents/Github/ride-sharing/XsimulationNN/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/Motahare/Documents/Github/ride-sharing/XsimulationNN/CityMapFloat.hpp
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/CityMapFloat.hpp
 stdio.h
 -
 stdlib.h
@@ -28,7 +28,7 @@ boost/graph/dijkstra_shortest_paths.hpp
 boost/iostreams/device/mapped_file.hpp
 -
 
-/home/Motahare/Documents/Github/ride-sharing/XsimulationNN/KdTrip.hpp
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/KdTrip.hpp
 stdint.h
 -
 time.h
@@ -46,15 +46,15 @@ boost/shared_ptr.hpp
 boost/unordered_set.hpp
 -
 
-/home/Motahare/Documents/Github/ride-sharing/XsimulationNN/airports.cpp
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/airports.cpp
 stdio.h
 -
 time.h
 -
 CityMapFloat.hpp
-/home/Motahare/Documents/Github/ride-sharing/XsimulationNN/CityMapFloat.hpp
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/CityMapFloat.hpp
 KdTrip.hpp
-/home/Motahare/Documents/Github/ride-sharing/XsimulationNN/KdTrip.hpp
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/KdTrip.hpp
 boost/date_time/gregorian/gregorian_types.hpp
 -
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/Motahare/Documents/Github/ride-sharing/XsimulationNN
+# Install script for directory: /home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/Motahare/Documents/Github/ride-sharing/XsimulationNN/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

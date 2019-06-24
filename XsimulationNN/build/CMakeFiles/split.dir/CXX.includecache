@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/Motahare/Documents/Github/ride-sharing/XsimulationNN/KdTrip.hpp
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/KdTrip.hpp
 stdint.h
 -
 time.h
@@ -24,13 +24,13 @@ boost/shared_ptr.hpp
 boost/unordered_set.hpp
 -
 
-/home/Motahare/Documents/Github/ride-sharing/XsimulationNN/split.cpp
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/split.cpp
 stdio.h
 -
 time.h
 -
 KdTrip.hpp
-/home/Motahare/Documents/Github/ride-sharing/XsimulationNN/KdTrip.hpp
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/KdTrip.hpp
 boost/date_time/gregorian/gregorian_types.hpp
 -
 

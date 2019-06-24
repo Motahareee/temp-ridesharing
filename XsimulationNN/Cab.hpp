@@ -113,20 +113,14 @@ inline void Cab::set_max_share(int num_share)
 /////////////////////////////////////////////////////////////////////////////////////////////
 inline int Cab::update_cab(CityMap *city, int time, stack<int> &rebalancing_set)
 {
-  //if(this->id==debug)
-  //cout<<"update_cab , dist_driven"<<this->dist_driven<<" idle/roam "<<(this->state==1)<<endl;
-  
+ 
   // If this is the first update ever, making it like we're not moving
   if (this->last_update<0)
     this->last_update = time;
+  
   // Update the timestamps
   int time_passed = time - this->last_update;
   this->last_update = time;
-  //if(this->id==debug)
-  //cout<<"track 2"<<endl;
-  
-  //if ((this->stops.front().wait_stop < 0 || time_passed<=0) && this->cur_pos>0){//moti add passenger 0
-  //if((this->state==1 && stops.front().distance==0) || time_passed<=0){
   
   // if we are not moving, no need to update  
   if(time_passed<=0 || (stops.size()==1 && stops.front().passengers==0 && stops.front().distance==0)){
@@ -138,9 +132,7 @@ inline int Cab::update_cab(CityMap *city, int time, stack<int> &rebalancing_set)
   // teleport the cab to the first stop and reset the traveled
   // distance to 0 if possible
   if (this->cur_pos<0 && !this->stops.empty())
-    this->cur_pos = this->pop_stop(0); ////// do we need this anymore ?
-  if(this->id==debug)
-    cout<<"track 4"<<endl;
+    this->cur_pos = this->pop_stop(0); ////// do we still need this ?
   
   // Now update the actual distance traveled
   int distance = this->speed*time_passed;
@@ -156,8 +148,6 @@ inline int Cab::update_cab(CityMap *city, int time, stack<int> &rebalancing_set)
   if(this->id==debug)
     cout<<"stop distance"<<this->stops.front().distance<<endl;
 
-  //cout<<"update cab 1"<<this->stops.size()<<endl ; 
-  
   // Eliminate all reachable stops within the traveled distance
   while (!this->stops.empty() && this->dist_driven >= this->stops.front().distance){
     const int stop_distance = this->stops.front().distance;
@@ -189,21 +179,12 @@ inline int Cab::update_cab(CityMap *city, int time, stack<int> &rebalancing_set)
     	pop_time += this->stops.front().distance/DEFAULT_SPEED ;
     }
   }
-  //cout<<"distance in update cab"<<distance<<endl;
-  //if(this->dist_driven >= this->stops.front().distance){
-  //  this->state = 2 ;
-  //  this->cur_pos = this->stops.front().intersection ;
-  //}
   
   // the cab has passed all stops or has no position, make a new one
   if (this->stops.empty()) {
     this->gen_stop(city, rebalancing_set);
-    if(this->id==debug)    
-      cout<<"gen_stop"<<endl;
-    //cout<<this->dist_driven<<endl;
   }
-  //cout<<"update cab 8 "<<this->state<<" "<<this->stops.front().passengers<<endl ; 
-
+  
   // otherwise...
   //we need to generate path for rebalancing and to-share states
   if (this->state==3 || (this->state==1 && this->stops.front().distance!=0)) {
@@ -216,17 +197,14 @@ inline int Cab::update_cab(CityMap *city, int time, stack<int> &rebalancing_set)
     // find the actual path if we haven't done so
     if (this->pathIntersection.empty()){
       this->gen_path(city, this->cur_pos, this->stops.front().intersection, prev_delay);
-      //cout<<"intersection "<<this->stops.front().intersection<<endl;
     }
-    //cout<<this->dist_driven<<","<<this->pathDistance.at(this->cur_index)<<endl;
     
-
     //int temp_dis_driven = this->dist_driven - prev_delay ;
     while (this->dist_driven>=this->pathDistance.at(this->cur_index)) {
       --this->cur_index;
       if(this->cur_index==-1){
         cout<<"::-1"<<endl;
-	      cout<<this->id<<endl ;
+	cout<<this->id<<endl ;
       }
 
     }
@@ -238,8 +216,8 @@ inline int Cab::update_cab(CityMap *city, int time, stack<int> &rebalancing_set)
 
 inline void Cab::advance_odometer(int distance)
 {
-if(this->id==debug)
-  cout<<"ADVANCE ------"<<distance<<endl;
+  if(this->id==debug)
+    cout<<"ADVANCE ------"<<distance<<endl;
   this->odometer += distance;
   if (this->occupancy)
     this->dist_revenue += distance;
@@ -376,7 +354,6 @@ inline void Cab::gen_stop_idle(CityMap *city)
 // pathDistance
 inline bool Cab::gen_path(CityMap *city, int src, int dst, int delay)
 {
-  //cout<<"========gen_path "<<src<<","<<dst<<endl;
   CityMap::PathIterator path;
   city->findShortestPathIterator(src, dst, path);
   if (!path.isValid()) return false;
@@ -395,10 +372,6 @@ inline bool Cab::gen_path(CityMap *city, int src, int dst, int delay)
   
   this->cur_index = this->pathDistance.size()-1;
   
-  //for(int i=0 ; i<pathIntersection.size();i++){
-  //  cout<<pathDistance[i]<<"\t" ;
-  //}
-  //cout<<endl<<"::"<<delay<<"::"<<endl ;
   if(delay>0){
     for(int i=0 ; i<pathDistance.size();i++)
       pathDistance[i] += delay ;
@@ -414,8 +387,6 @@ inline int Cab::cost_to_share(CityMap *city, const CabTrip *trip, ServingOrder *
                               int pick_loc, int drop_loc, int walk_time, int &pick_wait,
                               int &cab_wait)
 {
-  //if(this->id==debug)
-  //  cout<<"cost to share"<<this->id<<endl;
   int equ_walk_distance = walk_time * DEFAULT_SPEED ;
   int distance = city->findShortestDistance(pick_loc, drop_loc) + PICKUP_DELAY ;
 
@@ -438,12 +409,7 @@ inline int Cab::cost_to_share(CityMap *city, const CabTrip *trip, ServingOrder *
       prev = this->pathIntersection.at(this->cur_index);
       dis = this->pathDistance.at(this->cur_index) - this->dist_driven;
   }
-
-  //if(this->id==debug && pick_loc==pick_loc==4175)
-  //  cout<<"dist_driven"<<this->dist_driven<<endl;
-  //if(this->id==debug && pick_loc==pick_loc==4175)
-  //  cout<<endl<<"cost to share :: "<<prev<<","<<pick_loc<<","<< this->stops.front().distance<<endl ; 
-  
+ 
   // if the cab is available for hire, pick up this trip
   if (this->state==1) {
     const int d = city->findShortestDistance(prev, pick_loc) ;    
@@ -453,16 +419,12 @@ inline int Cab::cost_to_share(CityMap *city, const CabTrip *trip, ServingOrder *
     if(d+dis < equ_walk_distance){
       cab_wait = equ_walk_distance - (d+dis) ;
     }
-    //if(this->id == debug)
-    //  cout<<"cab_wait"<<cab_wait<<endl;
     so->pick = 0 ;
     so->drop = 1 ; //moti added
     
     pick_wait = (d+dis+cab_wait)/DEFAULT_SPEED ;
-    //cout<<"AS empty"<<endl;
     return dis+d+distance;
   }
-  //if(this->id==debug && pick_loc==4175) cout<<"track 1"<<endl;
   
   // otherwise, do full calculation. There is a fixed cost of dropping
   // of this trip after the last dropoff location since the end of the list is definitly a dropoff
@@ -470,11 +432,8 @@ inline int Cab::cost_to_share(CityMap *city, const CabTrip *trip, ServingOrder *
   int drop_cost = city->findShortestDistanceReverse(this->stops.back().intersection, drop_loc) +  DROPOFF_DELAY ;
   // ... but if the path doesn't exist, bail out
   
-  //if(this->id==debug && pick_loc==4175) cout<<"track 2"<<endl;
   if (drop_cost - DROPOFF_DELAY <0) return -1;
-  //cout<<"pick/drop "<<pick_loc<<drop_loc<<endl;
-
-  //cout<<"drop_cost "<<drop_cost<<endl;
+  
   // Next, we need to determine how soon can we start take this trip
   // in given the max number of shares. Since we always put this trip
   // dropoff at the end, the number of shares will increase for all
@@ -483,7 +442,6 @@ inline int Cab::cost_to_share(CityMap *city, const CabTrip *trip, ServingOrder *
   // has the maximum number of shares. If there's none, we start at
   // the beginning.
   StopList::iterator skip_it ;
-  //cout<<"track 3 "<<this->id<<endl;
   int vacancy = this->find_shareable_stop(skip_it, trip->trip->passengers);
   if(this->id==debug and 1==2){
     cout<<vacancy<<endl;
@@ -491,13 +449,11 @@ inline int Cab::cost_to_share(CityMap *city, const CabTrip *trip, ServingOrder *
     cout<<":size: "<<this->stops.size()<<endl ;
     cout<<(skip_it!=this->stops.begin())<<endl;
   }
-  //if(this->id == debug) cout<<"WOww 1 "<<(skip_it!=this->stops.begin())<<endl;
-
+  
   if(this->cur_pos==this->stops.front().intersection && skip_it==this->stops.begin()){
     skip_it++ ;
     //skip_it++ ;
   }
-  //if(this->id == debug) cout<<"WOww 2 "<<(skip_it==this->stops.end())<<endl;
   bool skip = skip_it->trip->shares+1 > this->max_share || vacancy<0 || (skip_it!=this->stops.begin()) ;
   //if (skip && (skip_it==--this->stops.end())) return -1;
   // Now we try all possible segment, only after the skipped trip
@@ -511,24 +467,19 @@ inline int Cab::cost_to_share(CityMap *city, const CabTrip *trip, ServingOrder *
   int prev_type = 0 ;
   int bestpick_spring_gap=0, bestdrop_spring_gap=0 ;
   int pick_max_extra = 0 ;
-  //cout<<"cost to share 333"<<endl ; 
-//if(this->id==debug && pick_loc==4175) cout<<"track 4"<<endl;
-  if(this->id == debug) {
-    //cout<<"WOww 3"<<endl;
-  }
+  
    StopList::iterator t = this->stops.begin();
-if(this->id==debug && 1==2)
-  for(;t!=stops.end();t++){
-    cout<<":"<<t->passengers<<"\t";
-  }
-if(this->id==debug && 1==2)
+   if(this->id==debug && 1==2)
+    for(;t!=stops.end();t++){
+     cout<<":"<<t->passengers<<"\t";
+   }
+   if(this->id==debug && 1==2)
   cout<<endl;
+  
   for (StopList::iterator it=this->stops.begin(); it!=this->stops.end() && dis<MAX_DELAY_DISTANCE; ++it, ++order) {
     //int dist_left = 0 ;
-  //if(this->id == debug) cout<<"WOww 3 3 "<<(this->cur_pos==this->stops.front().intersection)<<endl;
 
     int dist_left = it->distance-((order==0 && this->cur_pos!=this->stops.front().intersection)?this->pathDistance.at(this->cur_index):0);
-  //if(this->id == debug) cout<<"WOww 4"<<endl;
     
     if(it->passengers<=0){
       if(prev_type==1) prev_delay = PICKUP_DELAY ;
@@ -546,7 +497,6 @@ if(this->id==debug && 1==2)
       else if (it->occ + trip->trip->passengers <= this->capacity) {
         // and the distance from here to when we pick them up should meet our condition
         int d = city->findShortestDistanceReverse(prev, pick_loc) + prev_delay ;
-      //cout<<"in 3"<<endl ; 
         
         if(d+dis < equ_walk_distance){
           cab_wait_ = equ_walk_distance - (d+dis) ;
@@ -554,8 +504,6 @@ if(this->id==debug && 1==2)
         else{
           cab_wait_ = 0 ;
         }
-      //cout<<"in 4"<<endl ; 
-  //if(this->id == debug) cout<<"WOww 4"<<endl;
 
         //check if it OK for the trip
         if ((d>=0) && (dis+d+cab_wait_ <= MAX_DELAY_DISTANCE)) {
@@ -565,15 +513,6 @@ if(this->id==debug && 1==2)
 
           if (d>=0 && (d + it->dist_acc + drop_cost - distance) <= MAX_EXTRA_DISTANCE+it->spring_gap) {
             cost += d - dist_left;
-            //cost += d - dist_left;
-            //int stop_delay = 0 ;
-            //if(d+dis<equ_walk_distance){
-            //  stop_delay = equ_walk_distance - (d+dis) ;
-            //}
-            //if ((stop_delay+cost+it->max_extra)<=MAX_EXTRA_DISTANCE && (cost+it->max_delay)<=MAX_DELAY_DISTANCE) {
-      //cout<<"in 6"<<endl ; 
-            //cout<<"::"<<it->max_extra<<" "<<it->max_delay<<endl;
-  //if(this->id == debug) cout<<"WOww 5"<<endl;
             
             if ((cost+it->max_extra) <= MAX_EXTRA_DISTANCE+it->spring_gap && (cost+it->max_delay) <= MAX_DELAY_DISTANCE) {
               cost += drop_cost;
@@ -595,9 +534,6 @@ if(this->id==debug && 1==2)
     occ += it->passengers;
     dis += dist_left;
   }
-  //cout<<"cost 2 "<<min_cost<<endl;
-
-  //cout<<"cost to share 3333"<<endl ; 
   //if(this->id==debug && pick_loc==4175) cout<<"track 5"<<endl;
   { 
     if (order == this->stops.size()) {
@@ -628,7 +564,6 @@ if(this->id==debug && 1==2)
   if(pick_total_dis <= equ_walk_distance){
     cab_wait = equ_walk_distance - pick_total_dis ;
   }
-  //cout<<"cost 3 "<<min_cost<<endl;
   
   const int pick_cost = min_cost - drop_cost;
   // After finding the pickup order, we'll optimize for the dropoff's
@@ -642,19 +577,11 @@ if(this->id==debug && 1==2)
       int intersection = (order<so->pick)?pick_loc:it->intersection;
 
       prev_type = it->passengers ;
-      //cout<<"intersection ::"<<intersection<<endl;
-      //cout<<"pass ::"<<it->passengers<<endl;
-      //cout<<"order::"<<order<<endl;
 
       if(pass!=1){
       	if(prev_type==1) prev_delay = PICKUP_DELAY ;
       	else if(prev_type==-1) prev_delay = DROPOFF_DELAY ;
       	else prev_delay = 0 ;
-        //cout<<"check size"<<" "<<this->stops.size()<<endl;
-        //cout<<"pickup order"<<" "<<so->pick<<endl;
-        //cout<<"next"<<next<<endl;
-
-      
       	if (next>=0) {
             int cost = city->findShortestDistance(drop_loc, next)+ DROPOFF_DELAY ;
             
@@ -664,9 +591,7 @@ if(this->id==debug && 1==2)
             if (d>=0) {	   
             	    cost += pick_cost + d -last_dist;
             	    //if ((cost+max_extra<MAX_EXTRA_DISTANCE) && cost<min_cost && equ_walk_distance<=cost+max_delay && cost+max_delay<MAX_DELAY_DISTANCE) {
-            	    //cout<<"sim 1 "<<it->wait_stop<<endl ;
                   if ((cost+max_extra<MAX_EXTRA_DISTANCE+spring_gap) && cost<min_cost && cost+max_delay<MAX_DELAY_DISTANCE) {
-              //cout<<"min_cost "<<min_cost<<endl;
               		
                     min_cost = cost;
               		  so->drop = order+1;
@@ -686,16 +611,15 @@ if(this->id==debug && 1==2)
       pass = it->passengers ;
     }
   }
-  //cout<<"cost 4 "<<min_cost<<endl;
   //min_cost -= (bestpick_spring_gap - bestdrop_spring_gap) ;
- /* 
- if(pick_cost - (bestpick_spring_gap - bestdrop_spring_gap) <= MAX_EXTRA_DISTANCE
-     && pick_cost + pick_max_extra <= MAX_EXTRA_DISTANCE) {
-    */min_cost -= (bestpick_spring_gap - bestdrop_spring_gap) ;
-  /*}
+   
+  if(pick_cost - (bestpick_spring_gap - bestdrop_spring_gap) <= MAX_EXTRA_DISTANCE
+     && pick_cost + pick_max_extra - (bestpick_spring_gap - bestdrop_spring_gap) <= MAX_EXTRA_DISTANCE) {
+    min_cost -= (bestpick_spring_gap - bestdrop_spring_gap) ;
+  }
   else{
     min_cost = -1 ;
-  }*/
+  }
   pick_wait = pick_total_dis/DEFAULT_SPEED ;
   return min_cost;
 }
