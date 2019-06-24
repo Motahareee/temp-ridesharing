@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/KdTrip.hpp
+stdint.h
+-
+time.h
+-
+limits.h
+-
+float.h
+-
+vector
+-
+boost/iostreams/device/mapped_file.hpp
+-
+boost/shared_ptr.hpp
+-
+boost/unordered_set.hpp
+-
+
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/split.cpp
+stdio.h
+-
+time.h
+-
+KdTrip.hpp
+/home/Motahare/Documents/Github/temp-ridesharing/XsimulationNN/KdTrip.hpp
+boost/date_time/gregorian/gregorian_types.hpp
+-
+
